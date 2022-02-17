@@ -1,0 +1,33 @@
+<h1>My Petition Project</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, amet
+    cumque sapiente eius rerum qui minima reiciendis suscipit, voluptatum fugit,
+    laboriosam quae pariatur ullam asperiores? Facere numquam voluptates
+    blanditiis.</p>
+
+<form action="" method="POST">
+
+    <label for="first">Name:</label>
+    <input type="text" name="first" id="" />
+    <label for="last">Last Name:</label>
+    <input type="text" name="last" id="" />
+
+    <div class="flex-row">
+        <div class="wrapper">
+            <label for="signature"> Please sing here: </label>
+            <input type="hidden" name="signature" id="input_signature" />
+            <canvas id="canvas_area" width="70" height="30"></canvas>
+        </div>
+        <div class="clear-btn">
+            <button id="clear"><span> Clear </span></button>
+        </div>
+        <button id="submit_button">Submit</button>
+    </div>
+
+</form>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.5/signature_pad.min.js"
+    integrity="sha512-kw/nRM/BMR2XGArXnOoxKOO5VBHLdITAW00aG8qK4zBzcLVZ4nzg7/oYCaoiwc8U9zrnsO9UHqpyljJ8+iqYiQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+></script>
+<script src="/script.js"></script>
