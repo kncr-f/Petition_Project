@@ -3,8 +3,6 @@ const db = require("./database/db");
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
 
 const { engine } = require("express-handlebars");
 app.engine("handlebars", engine());
@@ -12,9 +10,20 @@ app.set("view engine", "handlebars");
 
 app.use(express.static("./public"));
 
+
+const cookieSession = require('cookie-session');
+
+app.use(cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    sameSite: true
+}));
+
+
 app.get("/", (req, res) => {
 
-    if (req.cookies.petitionSuccess) {
+
+    if (req.session.sigId) {
         res.redirect("/thanks");
         return;
     }
@@ -25,46 +34,60 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-    console.log(req.body.first);
-    // console.log(req.body)
-    db.addPetition(req.body.first, req.body.last, req.body.signature)
+    const { first, last, signature, id } = req.body;
+
+    if (first === "" || last === "" || signature === "") {
+
+        res.render("error", {
+            layout: "main",
+
+        })
+    }
+
+    db.addPetition(first, last, signature)
         .then(({ rows }) => {
             console.log("rows: ", rows);
-            res.cookie("petitionSuccess", true);
+            // res.cookie("petitionSuccess", true);
+            req.session.sigId = rows[0].id;
+            //console.log(req.session);
             res.redirect("/thanks");
         })
         .catch((err) => {
-            console.log("error", err)
+            console.log("error", err);
+
         });
 
 });
 
 app.get("/thanks", (req, res) => {
+    db.countSigners()
+        .then(({ rows }) => {
 
-    res.render("thanks", {
-        layout: "main"
-    })
+            //console.log("rows", rows[0].count)
+            res.render("thanks", {
+                layout: "main",
+                numberOfSigners: rows[0].count,
+                img: rows[0].signature
+            })
+        })
+
 });
 app.get("/signers", (req, res) => {
     db.getAllSigners().then(({ rows }) => {
         res.render("signers", {
             layout: "main",
-            rows
+            AllSigners: rows
         })
     })
 
 
 })
 
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
+
 app.listen(8080, () => console.log("Server listening"));
 
 
-
-// db.query returm promise, use then to catch the value
-// db.query(`SELECT * FROM cities`)
-//     .then(({ rows }) => {
-//         console.log("rows: ", rows)
-//     })
-//     .catch((err) => {
-//         console.log("error", err)
-//     });

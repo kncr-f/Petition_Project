@@ -5,29 +5,33 @@
     blanditiis.</p>
 
 <form action="" method="POST">
+    <div class="name_block flex-row">
+        <label for="first">Name:</label>
+        <input type="text" name="first" id="" />
+        <label for="last">Last Name:</label>
+        <input type="text" name="last" id="" />
 
-    <label for="first">Name:</label>
-    <input type="text" name="first" id="" />
-    <label for="last">Last Name:</label>
-    <input type="text" name="last" id="" />
+    </div>
 
     <div class="flex-row">
-        <div class="wrapper">
-            <label for="signature"> Please sing here: </label>
-            <input type="hidden" name="signature" id="input_signature" />
-            <canvas id="canvas_area" width="70" height="30"></canvas>
-        </div>
-        <div class="clear-btn">
-            <button id="clear"><span> Clear </span></button>
-        </div>
-        <button id="submit_button">Submit</button>
+
+        <label for="signature"> Please sing here: </label>
+        <input type="hidden" name="signature" id="input_signature" />
+        <canvas id="canvas_area" width="200" height="100"></canvas>
+
+    </div>
+    <div class="buttons flex-row">
+        <button type="submit" id="submit_button">Submit</button>
+        <button type="reset" id="clear_botton"><span>Clear</span></button>
     </div>
 
 </form>
-<script
+
+{{! <script
     src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.5/signature_pad.min.js"
     integrity="sha512-kw/nRM/BMR2XGArXnOoxKOO5VBHLdITAW00aG8qK4zBzcLVZ4nzg7/oYCaoiwc8U9zrnsO9UHqpyljJ8+iqYiQ=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
 ></script>
-<script src="/script.js"></script>
+
+<script src="/script.js"></script> }}

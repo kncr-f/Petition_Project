@@ -6,16 +6,18 @@ module.exports.addPetition = (first, last, signature) => {
     return db.query(`
     INSERT INTO signatures (first, last, signature)
     VALUES ($1, $2, $3)
-    RETURNING first, last, signature
+    RETURNING first, last, signature, Id
     
-    `, [first, last, signature]); //${city}, ${pop}, ${country} for avoiding vulnebirilities
+    `, [first, last, signature]); // don't use ${city}, ${pop}, ${country} for avoiding vulnerabilities...
 } 
 
 module.exports.getAllSigners = () => {
     return db.query(`SELECT * FROM signatures`);
 }
 
-
+module.exports.countSigners = () => {
+    return db.query(`SELECT COUNT(*) FROM signatures`);
+}
 
 
 

@@ -1,31 +1,53 @@
-var canvas = document.getElementById("canvas_area");
+const canvas = $("#canvas_area");
+const submit = $("#submit_button");
+const canvasInput = $('input[type="hidden"]');
+const clear_button = $("#clear_botton");
 
-function resizeCanvas() {
-    var ratio = Math.max(window.devicePixelRatio || 1, 1);
-    canvas.width = canvas.offsetWidth * ratio;
-    canvas.height = canvas.offsetHeight * ratio;
-    canvas.getContext("2d").scale(ratio, ratio);
-}
-window.onresize = resizeCanvas;
-resizeCanvas();
 
-var signaturePad = new SignaturePad(canvas, {
-    backgroundColor: 'rgb(250,250,250)'
-});
 
-document.getElementById('submit_button').addEventListener('click', function () {
-    if (signaturePad.isEmpty()) {
-        return alert("Please provide a signature first.");
-    }
+canvas.on("mousedown", function (e) {
 
-    var data = signaturePad.toDataURL('image/jpeg');
-    console.log("signature_data", data);
-    document.getElementById("input_signature").value = data
+    const context = canvas[0].getContext("2d");
+    const canvasX = canvas[0].clientWidth;
+    const canvasY = canvas[0].clientHeight;
 
-});
+    const startX = e.offsetX;
+    const startY = e.offsetY;
 
-document.getElementById("clear").addEventListener('click', function () {
-    signaturePad.clear();
+    context.beginPath();
+    context.lineWidth = 1;
+    context.strokeStyle = "pink";
+
+    context.moveTo(startX, startY);
+
+    const dataUrl = canvas[0].toDataURL();
+    canvasInput.val(dataUrl);
+
+    canvas.on("mousemove", function moveTo(e) {
+        const currentX = e.offsetX;
+        const currentY = e.offsetY;
+
+
+        if (currentX >= canvasX || currentY >= canvasY) {
+            context.closePath();
+            canvas.off("mousemove", moveTo);
+        } else {
+            context.lineTo(currentX, currentY);
+            context.stroke();
+        }
+        canvas.on("mouseup", function () {
+
+            context.closePath();
+            canvas.off("mousemove", moveTo);
+        });
+    });
+
+
 })
+
+clear_button.on("click", function () {
+    canvasInput.val("");
+})
+
 
 
