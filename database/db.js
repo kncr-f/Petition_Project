@@ -19,6 +19,10 @@ module.exports.countSigners = () => {
     return db.query(`SELECT COUNT(*) FROM signatures`);
 }
 
+module.exports.getSignature = (id) => {
+    return db.query(`SELECT signature FROM signatures WHERE id = $1`, [id]);
+}
+
 
 
 

@@ -35,22 +35,19 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
     const { first, last, signature, id } = req.body;
-
     if (first === "" || last === "" || signature === "") {
-
         res.render("error", {
             layout: "main",
-
         })
     }
 
     db.addPetition(first, last, signature)
         .then(({ rows }) => {
-            console.log("rows: ", rows);
-            // res.cookie("petitionSuccess", true);
+
             req.session.sigId = rows[0].id;
-            //console.log(req.session);
+
             res.redirect("/thanks");
+
         })
         .catch((err) => {
             console.log("error", err);
@@ -60,14 +57,22 @@ app.post("/", (req, res) => {
 });
 
 app.get("/thanks", (req, res) => {
+
+    let countRows;
+
     db.countSigners()
         .then(({ rows }) => {
+            countRows = rows;
 
-            //console.log("rows", rows[0].count)
+            return db.getSignature(req.session.sigId);
+
+        })
+        .then(({ rows }) => {
             res.render("thanks", {
                 layout: "main",
-                numberOfSigners: rows[0].count,
+                numberOfSigners: countRows[0].count,
                 img: rows[0].signature
+
             })
         })
 

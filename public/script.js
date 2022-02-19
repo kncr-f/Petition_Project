@@ -16,17 +16,15 @@ canvas.on("mousedown", function (e) {
 
     context.beginPath();
     context.lineWidth = 1;
-    context.strokeStyle = "pink";
+    context.strokeStyle = "#000";
 
     context.moveTo(startX, startY);
 
-    const dataUrl = canvas[0].toDataURL();
-    canvasInput.val(dataUrl);
+
 
     canvas.on("mousemove", function moveTo(e) {
         const currentX = e.offsetX;
         const currentY = e.offsetY;
-
 
         if (currentX >= canvasX || currentY >= canvasY) {
             context.closePath();
@@ -36,6 +34,9 @@ canvas.on("mousedown", function (e) {
             context.stroke();
         }
         canvas.on("mouseup", function () {
+
+            const dataUrl = canvas[0].toDataURL();
+            canvasInput.val(dataUrl);
 
             context.closePath();
             canvas.off("mousemove", moveTo);
