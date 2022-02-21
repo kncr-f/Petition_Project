@@ -4,22 +4,26 @@
     margin: 0;
     font-family: "Poppins", sans-serif;
 }
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 .container {
     background-color: aliceblue;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-grow: 1;
     flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    background: #ececec;
     overflow: hidden;
 }
 h1 {
     margin: 10px;
     display: flex;
-    margin-top: 75px;
+    margin-top: 15px;
 
     letter-spacing: 0.5px;
     color: cadetblue;
@@ -78,6 +82,9 @@ h1 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
     background-color: cadetblue;
     transition: 0.2s;
+}
+.signature_block {
+    width: 350px;
 }
 
 #signer_count {

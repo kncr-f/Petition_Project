@@ -16,7 +16,7 @@ canvas.on("mousedown", function (e) {
 
     context.beginPath();
     context.lineWidth = 1;
-    context.strokeStyle = "#000";
+    context.strokeStyle = "black";
 
     context.moveTo(startX, startY);
 
