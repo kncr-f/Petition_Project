@@ -22,11 +22,11 @@ module.exports.addPetition = (user_id, signature) => {
 }
 
 module.exports.getUser = (email) => {
-    return db.query(`SELECT password FROM users WHERE email = $1`, [email]);
+    return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
 }
 
-module.exports.getSignature = (user_id) => {
-    return db.query(`SELECT signature FROM signatures WHERE user_id = $1`, [user_id]);
+module.exports.getSignature = (sigId) => {
+    return db.query(`SELECT signature, id FROM signatures WHERE user_id = $1`, [sigId]);
 }
 
 module.exports.countSigners = () => {
@@ -38,31 +38,5 @@ module.exports.getAllSigners = () => {
 }
 
 
-
-/*
-module.exports.addPetition = (first, last, signature) => {
-    return db.query(`
-    INSERT INTO signatures (first, last, signature)
-    VALUES ($1, $2, $3)
-    RETURNING first, last, signature, Id
-    
-    `, [first, last, signature]); 
-} 
-
-module.exports.getAllSigners = () => {
-    return db.query(`SELECT * FROM signatures`);
-}
-
-module.exports.countSigners = () => {
-    return db.query(`SELECT COUNT(*) FROM signatures`);
-}
-
-module.exports.getSignature = (id) => {
-    return db.query(`SELECT signature FROM signatures WHERE id = $1`, [id]);
-}
-
-
-
-*/
 
 
