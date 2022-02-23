@@ -46,7 +46,7 @@ app.post("/register", (req, res) => {
                 .then(({ rows }) => {
                     // console.log('adduser...', rows)
                     req.session.userId = rows[0].id;
-                    res.redirect("/petition");
+                    res.redirect("/profile");
 
                 })
                 .catch((err) => {
@@ -62,6 +62,40 @@ app.post("/register", (req, res) => {
             console.log('err with hashing issue', err)
         })
 });
+
+app.get("/profile", (req, res) => {
+
+    res.render("profile", {
+        layout: "main"
+    })
+
+})
+
+app.post("/profile", (req, res) => {
+    const { age, city, url } = req.body;
+    let securedUrl;
+    //url http https control
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+        securedUrl = url;
+    } else {
+        securedUrl = "";
+    }
+
+    db.addProfileInfo(age, city, securedUrl, req.session.userId).then(({ rows }) => {
+
+        res.redirect("/petition");
+
+    })
+        .catch((err) => {
+            console.log("error", err);
+            res.render("error", {
+                layout: "main",
+            })
+
+        });
+
+})
+
 
 app.get("/login", (req, res) => {
 
@@ -90,7 +124,7 @@ app.post("/login", (req, res) => {
                 //console.log('match', match);
                 req.session.userId = rows[0].id;
                 db.getSignature(req.session.userId).then((results) => {
-                    console.log('results', results)
+                    //console.log('results', results)
                     if (results.rows.length) {
                         req.session.sigId = results.rows[0].id
 
@@ -131,7 +165,7 @@ app.get("/petition", (req, res) => {
     }
 
     db.getSignature(req.session.sigId).then(({ rows }) => {
-        console.log('userSignatureCompare', rows)
+        //console.log('userSignatureCompare', rows)
 
     })
 
@@ -153,7 +187,7 @@ app.post("/petition", (req, res) => {
 
     db.addPetition(req.session.userId, signature)
         .then(({ rows }) => {
-            console.log('rows in addpetition', rows)
+            //console.log('rows in addpetition', rows)
 
             req.session.sigId = rows[0].id;
             res.redirect("/thanks");
@@ -195,21 +229,43 @@ app.get("/thanks", (req, res) => {
 
 });
 
-// app.get("/signers", (req, res) => {
-//     db.getAllSigners().then(({ rows }) => {
-//         res.render("signers", {
-//             layout: "main",
-//             AllSigners: rows
-//         })
-//     })
-//         .catch((err) => {
-//             console.log("error", err);
+app.get("/signers", (req, res) => {
+    console.log('req.session', req.session.userId)
 
-//         });
+    db.getProfileInfo()
+        .then(({ rows }) => {
+            console.log("signers route rows:", rows);
+            res.render("signers", {
+                layout: "main",
+                AllSigners: rows
+
+            })
 
 
-// })
+        })
+        .catch((err) => {
+            console.log("error in db.getProfileInfo", err);
 
+        });
+
+
+});
+
+app.get("/signers/:city", (req, res) => {
+
+    db.getSameCitySigners(req.params.city)
+        .then(({ rows }) => {
+            console.log('rows', rows)
+            return res.render("signers_same_city", {
+                layout: "main",
+                allSameCitySigners: rows,
+
+            });
+        });
+
+
+
+});
 
 
 

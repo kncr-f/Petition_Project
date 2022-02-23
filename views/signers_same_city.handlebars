@@ -1,0 +1,17 @@
+<h2>Same City Singers</h2>
+{{#allSameCitySigners}}
+  {{#if url}}
+        <p>
+            <a href={{url}}>{{first_name}} </a>
+            {{last_name}}
+            {{age}}
+            
+        </p>
+    {{else}}
+        <p>{{first_name}}
+            {{last_name}}
+            {{age}}
+          
+    {{/if}}
+
+{{/allSameCitySigners}}

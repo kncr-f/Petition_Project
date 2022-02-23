@@ -21,6 +21,41 @@ module.exports.addPetition = (user_id, signature) => {
     `, [user_id, signature]);
 }
 
+module.exports.addProfileInfo = (age, city, url, user_id) => {
+    return db.query(`
+    INSERT INTO user_profiles (age, city, url, user_id)
+    VALUES ($1,$2,$3,$4)
+    `, [age || null, city || null, url || null, user_id])
+}
+
+module.exports.getProfileInfo = () => {
+    return db.query(`SELECT users.first AS first_name, 
+                            users.last AS last_name, 
+                            user_profiles.age, 
+                            user_profiles.city, 
+                            user_profiles.url
+                            FROM users 
+                            LEFT JOIN user_profiles
+                            ON users.id = user_profiles.user_id
+                            JOIN signatures
+                            ON signatures.user_id = user_profiles.user_id`)
+
+}
+
+module.exports.getSameCitySigners = (city) => {
+    return db.query(`SELECT users.first AS first_name, 
+                            users.last AS last_name, 
+                            user_profiles.age, 
+                            user_profiles.city, 
+                            user_profiles.url
+                            FROM users 
+                            FULL OUTER JOIN user_profiles 
+                            ON users.id = user_profiles.user_id
+                            WHERE LOWER(city) = LOWER($1)`,
+        [city]
+    );
+}
+
 module.exports.getUser = (email) => {
     return db.query(`SELECT password, id FROM users WHERE email = $1`, [email]);
 }
