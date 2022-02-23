@@ -57,6 +57,9 @@ h1 {
     transition: 0.2s;
     text-align: center;
 }
+.edit_profile_form {
+    flex-direction: column;
+}
 #canvas_area {
     border: 1px solid dimgray;
     border-radius: 20px;

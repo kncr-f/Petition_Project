@@ -267,6 +267,16 @@ app.get("/signers/:city", (req, res) => {
 
 });
 
+app.get("/edit_profile", (req, res) => {
+
+    getUserDataForEdit(req.session.userId).then(({ rows }) => {
+        console.log('rows', rows)
+    })
+    res.render("edit_profile", {
+        layout: "main"
+    })
+})
+
 
 
 app.get("/logout", (req, res) => {
@@ -274,7 +284,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/register");
 });
 
-app.listen(8080, () => console.log("Server listening"));
+app.listen(process.env.PORT || 8080, () => console.log("Server listening"));
 
 
 

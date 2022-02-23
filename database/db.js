@@ -1,6 +1,7 @@
 //spiced-pg ==> the node-postgres package
 const spicedPg = require("spiced-pg");
-const db = spicedPg(`postgres:postgres:pstgres@localhost:5432/petition`);
+const db = spicedPg(process.env.DATABASE_URL ||
+    `postgres:postgres:pstgres@localhost:5432/petition`);
 
 
 module.exports.addUser = (first, last, email, password) => {
@@ -70,6 +71,19 @@ module.exports.countSigners = () => {
 
 module.exports.getAllSigners = () => {
     return db.query(`SELECT * FROM users`);
+}
+
+module.exports.getUserDataForEdit = (user_id) => {
+    return db.query(`SELECT users.first AS first_name, 
+                            users.last AS last_name, 
+                            user_profiles.age, 
+                            user_profiles.city, 
+                            user_profiles.url
+                            FROM users 
+                            LEFT JOIN user_profiles
+                            ON users.id = user_profiles.user_id
+                            WHERE user_id = $1`, [user_id]
+    )
 }
 
 
