@@ -47,40 +47,7 @@ router.post("/register", (req, res) => {
 });
 
 
-// ********* profile routers ***********
 
-router.get("/profile", (req, res) => {
-
-    res.render("profile", {
-        layout: "main"
-    })
-
-})
-
-router.post("/profile", (req, res) => {
-    const { age, city, url } = req.body;
-    let securedUrl;
-    //url http https control
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-        securedUrl = url;
-    } else {
-        securedUrl = "";
-    }
-
-    db.addProfileInfo(age, city, securedUrl, req.session.userId).then(({ rows }) => {
-
-        res.redirect("/petition");
-
-    })
-        .catch((err) => {
-            console.log("error", err);
-            res.render("error", {
-                layout: "main",
-            })
-
-        });
-
-})
 
 
 // ********* login routers ************
