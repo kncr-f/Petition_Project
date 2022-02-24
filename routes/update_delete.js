@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/db");
+const { requireLoggedInUser, requireLoggedOutUser, requireNoSignature, requireSignature } = require('../middleware');
 
 
 router.get("/edit_profile", (req, res) => {
@@ -79,8 +80,8 @@ router.post("/edit_profile", (req, res) => {
 })
 
 
-router.post("/thanks", (req, res) => {
-    //const {user_id} = req.body;
+router.post("/thanks", requireSignature, (req, res) => {
+
     db.deleteSignature(req.session.userId)
         .then(({ rows }) => {
 

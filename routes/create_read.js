@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database/db");
+const { requireLoggedInUser, requireLoggedOutUser, requireNoSignature, requireSignature } = require('../middleware');
 
 
 // ********* petition routers **********
-router.get("/petition", (req, res) => {
+router.get("/petition", requireNoSignature, (req, res) => {
 
     if (req.session.sigId) {
         res.redirect("/thanks");
@@ -23,7 +24,7 @@ router.get("/petition", (req, res) => {
     })
 });
 
-router.post("/petition", (req, res) => {
+router.post("/petition", requireNoSignature, (req, res) => {
     const { signature } = req.body;
     if (signature === "") {
         res.render("error", {
@@ -82,7 +83,7 @@ router.post("/profile", (req, res) => {
 })
 
 // ********* thanks get signatures routers ***********
-router.get("/thanks", (req, res) => {
+router.get("/thanks", requireSignature, (req, res) => {
 
     let countRows;
 
@@ -113,7 +114,7 @@ router.get("/thanks", (req, res) => {
 
 
 // ********* singers && signers_same_city routers ***********
-router.get("/signers", (req, res) => {
+router.get("/signers", requireSignature, (req, res) => {
     console.log('req.session', req.session.userId)
 
     db.getProfileInfo()
@@ -134,7 +135,7 @@ router.get("/signers", (req, res) => {
 
 });
 
-router.get("/signers/:city", (req, res) => {
+router.get("/signers/:city", requireSignature, (req, res) => {
 
     db.getSameCitySigners(req.params.city)
         .then(({ rows }) => {

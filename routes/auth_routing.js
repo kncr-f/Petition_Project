@@ -2,17 +2,18 @@ const express = require("express");
 const router = express.Router();
 const db = require("../database/db");
 const { compare, hash } = require("../bc");
+const { requireLoggedInUser, requireLoggedOutUser, requireNoSignature, requireSignature } = require('../middleware');
 
 
 // ******** register routers **********
 
-router.get("/register", (req, res) => {
+router.get("/register", requireLoggedOutUser, (req, res) => {
     res.render("register", {
         layout: "main"
     })
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", requireLoggedOutUser, (req, res) => {
     const { first, last, email, password } = req.body;
 
 
@@ -52,7 +53,7 @@ router.post("/register", (req, res) => {
 
 // ********* login routers ************
 
-router.get("/login", (req, res) => {
+router.get("/login", requireLoggedOutUser, (req, res) => {
 
     res.render("login", {
         layout: "main"
@@ -61,7 +62,7 @@ router.get("/login", (req, res) => {
 });
 
 
-router.post("/login", (req, res) => {
+router.post("/login", requireLoggedOutUser, (req, res) => {
     const { email, password } = req.body;
 
 

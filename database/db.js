@@ -39,7 +39,7 @@ module.exports.getProfileInfo = () => {
                             LEFT JOIN user_profiles
                             ON users.id = user_profiles.user_id
                             JOIN signatures
-                            ON signatures.user_id = user_profiles.user_id`)
+                            ON signatures.user_id = users.id`)
 
 }
 

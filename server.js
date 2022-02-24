@@ -2,13 +2,15 @@ const express = require("express");
 const db = require("./database/db");
 const app = express();
 //const profileRoutes = require("./routes/profile_routes");
+const { requireLoggedInUser, requireLoggedOutUser, requireNoSignature, requireSignature } = require('./middleware');
+
 app.use(express.urlencoded({ extended: false }));
 //Handlebars
 const { engine } = require("express-handlebars");
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 
-const { compare, hash } = require("./bc");
+//const { compare, hash } = require("./bc");
 
 
 app.use(express.static("./public"));
@@ -22,7 +24,7 @@ app.use(cookieSession({
     sameSite: true
 }));
 
-
+app.use(requireLoggedInUser);
 app.use('/', require('./routes/auth_routing'));
 app.use('/', require('./routes/create_read'));
 app.use('/', require('./routes/update_delete'));
