@@ -75,7 +75,8 @@ module.exports.getAllSigners = () => {
 
 module.exports.getUserDataForEdit = (user_id) => {
     return db.query(`SELECT users.first AS first_name, 
-                            users.last AS last_name, 
+                            users.last AS last_name,
+                            users.email, 
                             user_profiles.age, 
                             user_profiles.city, 
                             user_profiles.url
@@ -86,6 +87,40 @@ module.exports.getUserDataForEdit = (user_id) => {
     )
 }
 
+module.exports.editUserDataWithPassword = (first, last, email, password, id) => {
+    return db.query(`
+    UPDATE users
+    SET first = $1, last = $2, email= $3, password = $4
+    WHERE id = $5
+    `,
+        [first, last, email, password, id]
+    );
+}
+
+module.exports.editUserDataWithoutPassword = (first, last, email, id) => {
+    return db.query(`
+    UPDATE users 
+    SET  first = $1, last = $2, email= $3
+    WHERE id = $4
+    `, [first, last, email, id]);
+}
+
+module.exports.editOptionalDatas = (age, city, url, user_id) => {
+    return db.query(`
+    INSERT INTO user_profiles (age, city, url, user_id)
+    VALUES ($1,$2,$3, $4)
+    ON CONFLICT (user_id)
+    DO UPDATE SET age = $1, city = $2, url = $3
+  
+    `, [age || null, city || null, url || null, user_id])
+}
 
 
-
+module.exports.deleteSignature = (id) => {
+    return db.query(`
+    DELETE FROM signatures WHERE user_id = $1
+    `, [id]);
+}
+// UPDATE table_name
+//  SET column1 = value1, column2 = value2, ...
+//  WHERE condition; 

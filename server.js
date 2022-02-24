@@ -1,15 +1,15 @@
 const express = require("express");
 const db = require("./database/db");
-
 const app = express();
+//const profileRoutes = require("./routes/profile_routes");
 app.use(express.urlencoded({ extended: false }));
-
-
-
 //Handlebars
 const { engine } = require("express-handlebars");
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
+
+const { compare, hash } = require("./bc");
+
 
 app.use(express.static("./public"));
 
@@ -23,138 +23,12 @@ app.use(cookieSession({
 }));
 
 
-app.get("/register", (req, res) => {
-    res.render("register", {
-        layout: "main"
-    })
-});
 
-app.post("/register", (req, res) => {
-    const { first, last, email, password } = req.body;
-    const { compare, hash } = require("./bc");
-
-    if (first === "" || last === "" || email === "" || password === "") {
-        res.render("error", {
-            layout: "main",
-        })
-    }
-
-    hash(password)
-        .then((hashedPassword) => {
-            //console.log('hashedPassword', hashedPassword);
-            db.addUser(first, last, email, hashedPassword)
-                .then(({ rows }) => {
-                    // console.log('adduser...', rows)
-                    req.session.userId = rows[0].id;
-                    res.redirect("/profile");
-
-                })
-                .catch((err) => {
-                    console.log("error", err);
-                    res.render("error", {
-                        layout: "main",
-                    })
-
-                });
-
-        })
-        .catch((err) => {
-            console.log('err with hashing issue', err)
-        })
-});
-
-app.get("/profile", (req, res) => {
-
-    res.render("profile", {
-        layout: "main"
-    })
-
-})
-
-app.post("/profile", (req, res) => {
-    const { age, city, url } = req.body;
-    let securedUrl;
-    //url http https control
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-        securedUrl = url;
-    } else {
-        securedUrl = "";
-    }
-
-    db.addProfileInfo(age, city, securedUrl, req.session.userId).then(({ rows }) => {
-
-        res.redirect("/petition");
-
-    })
-        .catch((err) => {
-            console.log("error", err);
-            res.render("error", {
-                layout: "main",
-            })
-
-        });
-
-})
+app.use('/', require('./routes/auth_routing'));
+// app.use('/', require('./routes/create_read'));
 
 
-app.get("/login", (req, res) => {
 
-    res.render("login", {
-        layout: "main"
-    })
-
-});
-
-
-app.post("/login", (req, res) => {
-    const { email, password } = req.body;
-    const { compare, hash } = require("./bc");
-
-    if (email === "" || password === "") {
-        res.render("error", {
-            layout: "main",
-        })
-    }
-
-    db.getUser(email).then(({ rows }) => {
-        console.log('rows.. in post login', rows)
-        compare(password, rows[0].password).then((match) => {
-
-            if (match) {
-                //console.log('match', match);
-                req.session.userId = rows[0].id;
-                db.getSignature(req.session.userId).then((results) => {
-                    //console.log('results', results)
-                    if (results.rows.length) {
-                        req.session.sigId = results.rows[0].id
-
-                        res.redirect("/thanks");
-                        return;
-
-                    } else {
-                        res.redirect("/petition");
-                    }
-                })
-
-            }
-
-        })
-            .catch((err) => {
-                console.log(err);
-                res.render("error", {
-                    layout: "main",
-                })
-            })
-
-    })
-        .catch((err) => {
-            console.log(err);
-            res.render("error", {
-                layout: "main",
-            })
-        })
-
-})
 
 
 app.get("/petition", (req, res) => {
@@ -166,14 +40,12 @@ app.get("/petition", (req, res) => {
 
     db.getSignature(req.session.sigId).then(({ rows }) => {
         //console.log('userSignatureCompare', rows)
+        res.render("petition", {
+            layout: "main"
+        })
 
     })
 
-
-
-    res.render("petition", {
-        layout: "main"
-    })
 });
 
 
@@ -241,7 +113,6 @@ app.get("/signers", (req, res) => {
 
             })
 
-
         })
         .catch((err) => {
             console.log("error in db.getProfileInfo", err);
@@ -258,7 +129,7 @@ app.get("/signers/:city", (req, res) => {
             console.log('rows', rows)
             return res.render("signers_same_city", {
                 layout: "main",
-                allSameCitySigners: rows,
+                allSameCitySigners: rows
 
             });
         });
@@ -267,16 +138,100 @@ app.get("/signers/:city", (req, res) => {
 
 });
 
-app.get("/edit_profile", (req, res) => {
 
-    getUserDataForEdit(req.session.userId).then(({ rows }) => {
-        console.log('rows', rows)
+
+app.get("/edit_profile", (req, res) => {
+    console.log('req.session.userId', req.session.userId)
+    db.getUserDataForEdit(req.session.userId).then(({ rows }) => {
+        //console.log('rows in editProfile', rows);
+        res.render("edit_profile", {
+            layout: "main",
+            editUserData: rows
+        })
     })
-    res.render("edit_profile", {
-        layout: "main"
-    })
+
+});
+
+app.post("/edit_profile", (req, res) => {
+    const { first, last, email, password, age, city, url } = req.body;
+    console.log('req.body', req.body);
+    if (password) {
+        hash(password)
+            .then((hashedPassword) => {
+                let firstData;
+                db.editUserDataWithPassword(first, last, email, hashedPassword, req.session.userId)
+                    .then(({ rows }) => {
+                        firstData = rows;
+                        console.log("requieredData..", firstData)
+                        // res.redirect("/thanks");
+                        return db.editOptionalDatas(age, city, url, req.session.userId)
+                    })
+                    .then(({ rows }) => {
+                        console.log("editOptionalDatas..", rows)
+                        res.redirect("/thanks");
+                    })
+                    .catch((err) => {
+                        console.log("error", err);
+                        res.render("error", {
+                            layout: "main",
+                        })
+
+                    });
+
+            })
+            .catch((err) => {
+                console.log("error", err);
+                res.render("error", {
+                    layout: "main",
+                })
+
+            });
+
+    }
+    else {
+        db.editUserDataWithoutPassword(first, last, email, req.session.userId)
+            .then(({ rows }) => {
+                console.log('db passed');
+                console.log('rows in post_edit_profile withoutpassword', rows);
+                // res.redirect("/thanks");
+                // return
+                return db.editOptionalDatas(age, city, url, req.session.userId)
+
+
+            })
+            .then(({ rows }) => {
+                console.log("editOptionalDatas..", rows)
+                res.redirect("/thanks");
+            })
+            .catch((err) => {
+                console.log("error", err);
+                res.render("error", {
+                    layout: "main",
+                })
+
+            });
+
+    }
+
 })
 
+
+app.post("/thanks", (req, res) => {
+    //const {user_id} = req.body;
+    db.deleteSignature(req.session.userId)
+        .then(({ rows }) => {
+
+            req.session.sigId = null;
+            res.redirect("/petition")
+        })
+        .catch((err) => {
+            console.log("error", err);
+            res.render("error", {
+                layout: "main",
+            })
+
+        });
+})
 
 
 app.get("/logout", (req, res) => {
