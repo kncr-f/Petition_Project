@@ -73,7 +73,7 @@ router.post("/login", requireLoggedOutUser, (req, res) => {
     }
 
     db.getUser(email).then(({ rows }) => {
-        console.log('rows.. in post login', rows)
+        //console.log('rows.. in post login', rows)
         compare(password, rows[0].password).then((match) => {
 
             if (match) {

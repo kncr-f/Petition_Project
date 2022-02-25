@@ -20,13 +20,25 @@ body {
     flex-direction: column;
     overflow: hidden;
 }
+
+.register_page {
+    display: flex;
+}
 h1 {
     margin: 10px;
     display: flex;
     margin-top: 15px;
-
     letter-spacing: 0.5px;
     color: cadetblue;
+    transition: 0.2s;
+}
+
+label {
+    margin: 10px;
+    display: flex;
+
+    letter-spacing: 0.5px;
+    color: darkgoldenrod;
     transition: 0.2s;
 }
 
@@ -36,10 +48,12 @@ h1 {
     justify-content: center;
     flex-direction: column;
 }
-.text p {
+.register_text {
     margin: 15px;
-    width: 400px;
+    width: 350px;
+    height: 310px;
     padding: 15px;
+    padding-top: 40px;
     text-align: center;
     border: 1px solid dimgray;
     border-radius: 20px;
@@ -47,19 +61,38 @@ h1 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
     transition: 0.2s;
 }
+#petition_text {
+    margin: 15px;
+    width: 350px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid dimgray;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 25%);
+    transition: 0.2s;
+}
 .form {
     margin: 10px;
+    margin-top: -15px;
 }
 .form input {
     border: 1px solid dimgray;
+
     border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
     transition: 0.2s;
     text-align: center;
+    width: 250px;
+    height: 30px;
 }
 .edit_profile_form {
     flex-direction: column;
 }
+.sig_pad_petition {
+    margin-top: 0;
+}
+
 #canvas_area {
     border: 1px solid dimgray;
     border-radius: 20px;
@@ -68,16 +101,25 @@ h1 {
     text-align: center;
 }
 #shopping_img {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     border: 1px solid dimgray;
-    border-radius: 20px;
+    border-radius: 50%;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
     background-color: cadetblue;
     transition: 0.2s;
 }
-
+#shopping_img_petition {
+    width: 360px;
+    height: 240px;
+    border: 1px solid dimgray;
+    border-radius: 10%;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 25%);
+    background-color: cadetblue;
+    transition: 0.2s;
+}
 #signature_img {
     border: 1px solid dimgray;
     border-radius: 20px;
@@ -99,9 +141,12 @@ h1 {
     margin: 10px;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    margin-bottom: 0;
 }
 .flex-row label {
-    margin: 10px;
+    margin: 18px;
+    margin-bottom: 0;
 }
 canvas#canvas_area {
     background: #fff;
@@ -125,6 +170,7 @@ canvas#canvas_area {
 #submit_button {
     margin: 10px;
     padding: 10px;
+    width: 100px;
     border: 1px solid dimgray;
     border-radius: 20px;
     letter-spacing: 0.5px;
@@ -136,6 +182,103 @@ canvas#canvas_area {
     font-weight: 600;
     cursor: pointer;
 }
+#thanks_links {
+    margin: 20px;
+    font-size: larger;
+}
+
+#thanks_links a {
+    display: flex;
+    margin: 20px;
+    margin-bottom: 0;
+    text-decoration: none;
+    color: darksalmon;
+    position: relative;
+    text-align: center;
+}
+#thanks_links a:hover {
+    opacity: 0.8;
+    color: blueviolet;
+}
+
+#thanks_links a::after {
+    content: "";
+    border-bottom: 3px solid blueviolet;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateY(11px);
+    transition: transform 0.3s ease;
+    opacity: 0;
+}
+
+#thanks_links a:hover::after {
+    transform: translateY(0);
+    opacity: 0.8;
+}
+
+#delete_button {
+    margin: 10px;
+    padding: 10px;
+    color: red;
+    width: 240px;
+    border: 1px solid dimgray;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+    background-color: cadetblue;
+    transition: 0.2s;
+    border: 1px solid transparent;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+h2,
+h3 {
+    margin-top: 28px;
+    color: darksalmon;
+    display: flex;
+
+    letter-spacing: 0.5px;
+
+    transition: 0.2s;
+}
+
+#login_id {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: darksalmon;
+    position: relative;
+    text-align: center;
+}
+
+#login_id:hover {
+    opacity: 0.8;
+    color: blueviolet;
+}
+
+#login_id::after {
+    content: "";
+    border-bottom: 3px solid blueviolet;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateY(11px);
+    transition: transform 0.3s ease;
+    opacity: 0;
+}
+
+#login_id:hover::after {
+    transform: translateY(0);
+    opacity: 0.8;
+}
+
 footer {
     display: flex;
     justify-content: center;

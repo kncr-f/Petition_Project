@@ -91,12 +91,12 @@ router.get("/thanks", requireSignature, (req, res) => {
         .then(({ rows }) => {
             countRows = rows;
 
-            console.log("req.session.sigId...", req.session.sigId)
+            // console.log("req.session.sigId...", req.session.sigId)
             return db.getSignature(req.session.userId);
 
         })
         .then(({ rows }) => {
-            console.log("rows.. in thanks", rows)
+            // console.log("rows.. in thanks", rows)
 
             res.render("thanks", {
                 layout: "main",
@@ -115,11 +115,11 @@ router.get("/thanks", requireSignature, (req, res) => {
 
 // ********* singers && signers_same_city routers ***********
 router.get("/signers", requireSignature, (req, res) => {
-    console.log('req.session', req.session.userId)
+    //console.log('req.session', req.session.userId)
 
     db.getProfileInfo()
         .then(({ rows }) => {
-            console.log("signers route rows:", rows);
+            // console.log("signers route rows:", rows);
             res.render("signers", {
                 layout: "main",
                 AllSigners: rows
@@ -139,7 +139,7 @@ router.get("/signers/:city", requireSignature, (req, res) => {
 
     db.getSameCitySigners(req.params.city)
         .then(({ rows }) => {
-            console.log('rows', rows)
+            //console.log('rows', rows)
             return res.render("signers_same_city", {
                 layout: "main",
                 allSameCitySigners: rows
