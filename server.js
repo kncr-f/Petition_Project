@@ -1,16 +1,16 @@
 const express = require("express");
 const db = require("./database/db");
 const app = express();
-//const profileRoutes = require("./routes/profile_routes");
+exports.app = app;
 const { requireLoggedInUser, requireLoggedOutUser, requireNoSignature, requireSignature } = require('./middleware');
-
 app.use(express.urlencoded({ extended: false }));
+
+
 //Handlebars
 const { engine } = require("express-handlebars");
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 
-//const { compare, hash } = require("./bc");
 
 
 app.use(express.static("./public"));
@@ -34,7 +34,10 @@ app.get("/logout", (req, res) => {
     res.redirect("/register");
 });
 
-app.listen(process.env.PORT || 8080, () => console.log("Server listening"));
+if (require.main == module) {
+    app.listen(process.env.PORT || 8080, () => console.log("Server listening"));
+}
+
 
 
 
