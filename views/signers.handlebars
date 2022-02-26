@@ -1,19 +1,23 @@
-<h1>All Signers</h1>
+<div class="signers">
+    <a id="return_thanks" href="/thanks"> Return Thanks Page</a>
+    <h1>All Signers</h1>
 
-{{#AllSigners}}
+    {{#AllSigners}}
 
-    {{#if url}}
-        <p>
-            <a href="{{url}}">{{first_name}} {{last_name}}</a>
+        {{#if url}}
+            <p>
+                <a href="{{url}}">{{first_name}} {{last_name}}</a>
 
-            {{age}}
-            <a href="/signers/{{city}}">{{city}}</a>
-        </p>
-    {{else}}
-        <p>{{first_name}}
-            {{last_name}}
-            {{age}}
-            <a href="/signers/{{city}}">{{city}}</a></p>
-    {{/if}}
+                {{age}}
+                <a href="/signers/{{city}}">{{city}}</a>
+            </p>
+        {{else}}
+            <p>{{first_name}}
+                {{last_name}}
+                {{age}}
+                <a href="/signers/{{city}}">{{city}}</a></p>
+        {{/if}}
 
-{{/AllSigners}}
+    {{/AllSigners}}
+
+</div>

@@ -93,6 +93,11 @@ router.post("/login", requireLoggedOutUser, (req, res) => {
                 })
 
             }
+            else {
+                res.render("error", {
+                    layout: "main",
+                })
+            }
 
         })
             .catch((err) => {

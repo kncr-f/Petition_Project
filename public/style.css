@@ -5,14 +5,78 @@
     font-family: "Poppins", sans-serif;
 }
 body {
+    background-image: url("https://image.shutterstock.com/image-photo/old-brick-black-color-wall-260nw-1605128917.jpg");
     min-height: 100vh;
     display: flex;
+    color: blanchedalmond;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+}
+
+body::after {
+    content: "";
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+    z-index: -1;
+}
+header {
+    display: flex;
+    color: black;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: azure;
+    opacity: 0.4;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    height: 24px;
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+}
+
+header a {
+    color: black;
+    text-decoration: none;
+    margin-left: 20px;
+    padding-right: 60px;
+    position: relative;
+}
+header a:hover {
+    opacity: 0.8;
+    color: tomato;
+}
+header a::after {
+    content: "";
+    border-bottom: 3px solid tomato;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateY(11px);
+    transition: transform 0.3s ease;
+    opacity: 0;
+}
+
+header a:hover::after {
+    transform: translateY(0);
+    opacity: 0.8;
 }
 
 .container {
-    background-color: aliceblue;
+    margin: 20px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +93,7 @@ h1 {
     display: flex;
     margin-top: 15px;
     letter-spacing: 0.5px;
-    color: cadetblue;
+    color: lightgoldenrodyellow;
     transition: 0.2s;
 }
 
@@ -38,7 +102,7 @@ label {
     display: flex;
 
     letter-spacing: 0.5px;
-    color: darkgoldenrod;
+    color: floralwhite;
     transition: 0.2s;
 }
 
@@ -51,15 +115,16 @@ label {
 .register_text {
     margin: 15px;
     width: 350px;
-    height: 310px;
+    height: 270px;
     padding: 15px;
     padding-top: 40px;
     text-align: center;
-    border: 1px solid dimgray;
+    border: 2px solid dimgray;
     border-radius: 20px;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
     transition: 0.2s;
+    font-size: 22;
 }
 #petition_text {
     margin: 15px;
@@ -71,6 +136,7 @@ label {
     letter-spacing: 0.5px;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 25%);
     transition: 0.2s;
+    font-size: 18px;
 }
 .form {
     margin: 10px;
@@ -78,7 +144,7 @@ label {
 }
 .form input {
     border: 1px solid dimgray;
-
+    background-color: antiquewhite;
     border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
     transition: 0.2s;
@@ -90,7 +156,7 @@ label {
     flex-direction: column;
 }
 .sig_pad_petition {
-    margin-top: 0;
+    margin-top: -25px;
 }
 
 #canvas_area {
@@ -107,7 +173,7 @@ label {
     border-radius: 50%;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-    background-color: cadetblue;
+    opacity: 0.7;
     transition: 0.2s;
 }
 #shopping_img_petition {
@@ -125,7 +191,7 @@ label {
     border-radius: 20px;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-    background-color: cadetblue;
+    background-color: darkgrey;
     transition: 0.2s;
 }
 .signature_block {
@@ -170,15 +236,16 @@ canvas#canvas_area {
 #submit_button {
     margin: 10px;
     padding: 10px;
-    width: 100px;
+    width: 150px;
     border: 1px solid dimgray;
-    border-radius: 20px;
+    border-radius: 24px;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-    background-color: cadetblue;
+    background-color: salmon;
     transition: 0.2s;
     border: 1px solid transparent;
-    color: #fff;
+    color: ghostwhite;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
 }
@@ -192,18 +259,18 @@ canvas#canvas_area {
     margin: 20px;
     margin-bottom: 0;
     text-decoration: none;
-    color: darksalmon;
+    color: antiquewhite;
     position: relative;
     text-align: center;
 }
 #thanks_links a:hover {
     opacity: 0.8;
-    color: blueviolet;
+    color: aquamarine;
 }
 
 #thanks_links a::after {
     content: "";
-    border-bottom: 3px solid blueviolet;
+    border-bottom: 3px solid aquamarine;
     position: absolute;
     top: 0;
     left: 0;
@@ -222,13 +289,13 @@ canvas#canvas_area {
 #delete_button {
     margin: 10px;
     padding: 10px;
-    color: red;
+    color: red !important;
     width: 240px;
     border: 1px solid dimgray;
     border-radius: 20px;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-    background-color: cadetblue;
+    background-color: darkgray;
     transition: 0.2s;
     border: 1px solid transparent;
     color: #fff;
@@ -239,14 +306,65 @@ canvas#canvas_area {
 h2,
 h3 {
     margin-top: 28px;
-    color: darksalmon;
+    color: lightgoldenrodyellow;
     display: flex;
 
     letter-spacing: 0.5px;
 
     transition: 0.2s;
 }
+.signers h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.signers p {
+    margin: 5px;
+}
 
+.signers p,
+a {
+    text-align: center;
+    text-align: center;
+    color: azure;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.signers a:hover {
+    opacity: 0.7;
+    color: cadetblue;
+}
+.same_city_signers p {
+    margin: 5px;
+}
+
+.same_city_signers p,
+a {
+    text-align: center;
+    text-align: center;
+    color: azure;
+    font-size: 18px;
+}
+
+.same_city_signers a:hover {
+    opacity: 0.7;
+    color: cadetblue;
+}
+
+#return_link_signers {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: goldenrod;
+    margin-top: -98px;
+}
+#return_thanks {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: goldenrod;
+}
 #login_id {
     display: flex;
     justify-content: center;
@@ -258,12 +376,12 @@ h3 {
 
 #login_id:hover {
     opacity: 0.8;
-    color: blueviolet;
+    color: aquamarine;
 }
 
 #login_id::after {
     content: "";
-    border-bottom: 3px solid blueviolet;
+    border-bottom: 3px solid aquamarine;
     position: absolute;
     top: 0;
     left: 0;
@@ -278,13 +396,50 @@ h3 {
     transform: translateY(0);
     opacity: 0.8;
 }
+#error_link {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: darksalmon;
+    position: relative;
+    text-align: center;
+}
+
+#error_link:hover {
+    opacity: 0.8;
+    color: aquamarine;
+}
+
+#error_link::after {
+    content: "";
+    border-bottom: 3px solid aquamarine;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateY(11px);
+    transition: transform 0.3s ease;
+    opacity: 0;
+}
+#error_link:hover::after {
+    transform: translateY(0);
+    opacity: 0.8;
+}
+
+button:hover {
+    background-color: aquamarine;
+    opacity: 0.7;
+}
 
 footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: cadetblue;
+    background-color: azure;
     letter-spacing: 0.5px;
-    color: #fff;
+    color: dimgrey;
     font-weight: 600;
+    height: 30px;
+    opacity: 0.9;
 }
