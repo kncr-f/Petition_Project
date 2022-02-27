@@ -5,7 +5,10 @@
     font-family: "Poppins", sans-serif;
 }
 body {
-    background-image: url("https://image.shutterstock.com/image-photo/old-brick-black-color-wall-260nw-1605128917.jpg");
+    /* background-image: url("https://image.shutterstock.com/image-photo/old-brick-black-color-wall-260nw-1605128917.jpg"); */
+    /* background-image: url("https://media.istockphoto.com/photos/dark-black-and-blue-grungy-wall-background-for-display-or-montage-of-picture-id1150477705?k=20&m=1150477705&s=612x612&w=0&h=Yrqw1w6bEJ40kZFTSovkLtu4VE52zLgl-n6AE1t2BuM="); */
+    background-image: url("https://t4.ftcdn.net/jpg/02/98/58/41/360_F_298584167_WLdKSUF4ZpQxLe4dX1div4tvC41Nd9N0.jpg");
+
     min-height: 100vh;
     display: flex;
     color: blanchedalmond;
@@ -75,9 +78,9 @@ header a:hover::after {
 }
 
 .container {
-    margin: 20px;
-
     display: flex;
+    background-size: cover;
+    background-position: center center;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
@@ -112,6 +115,7 @@ label {
     justify-content: center;
     flex-direction: column;
 }
+
 .register_text {
     margin: 15px;
     width: 350px;
@@ -352,12 +356,16 @@ a {
     color: cadetblue;
 }
 
+.same_city_signers h2 {
+    margin-top: 20px;
+}
+
 #return_link_signers {
     text-align: center;
     display: flex;
     justify-content: center;
     color: goldenrod;
-    margin-top: -98px;
+    margin-top: 10px;
 }
 #return_thanks {
     text-align: center;
@@ -369,7 +377,7 @@ a {
     display: flex;
     justify-content: center;
     text-decoration: none;
-    color: darksalmon;
+    color: cornsilk;
     position: relative;
     text-align: center;
 }
