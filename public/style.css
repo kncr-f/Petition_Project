@@ -358,6 +358,8 @@ a {
 
 .same_city_signers h2 {
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 #return_link_signers {
