@@ -13,7 +13,7 @@ router.get("/petition", requireNoSignature, (req, res) => {
     }
 
     db.getSignature(req.session.sigId).then(({ rows }) => {
-        //console.log('userSignatureCompare', rows)
+        console.log('userSignatureCompare', rows)
 
     })
 
@@ -34,7 +34,7 @@ router.post("/petition", requireNoSignature, (req, res) => {
 
     db.addPetition(req.session.userId, signature)
         .then(({ rows }) => {
-            //console.log('rows in addpetition', rows)
+
 
             req.session.sigId = rows[0].id;
             res.redirect("/thanks");
@@ -63,8 +63,11 @@ router.post("/profile", (req, res) => {
     //url http https control
     if (url.startsWith("http://") || url.startsWith("https://")) {
         securedUrl = url;
+
     } else {
         securedUrl = "";
+
+
     }
 
     db.addProfileInfo(age, city, securedUrl, req.session.userId).then(({ rows }) => {
@@ -91,12 +94,10 @@ router.get("/thanks", requireSignature, (req, res) => {
         .then(({ rows }) => {
             countRows = rows;
 
-            // console.log("req.session.sigId...", req.session.sigId)
             return db.getSignature(req.session.userId);
 
         })
         .then(({ rows }) => {
-            // console.log("rows.. in thanks", rows)
 
             res.render("thanks", {
                 layout: "main",
@@ -115,11 +116,11 @@ router.get("/thanks", requireSignature, (req, res) => {
 
 // ********* singers && signers_same_city routers ***********
 router.get("/signers", requireSignature, (req, res) => {
-    //console.log('req.session', req.session.userId)
+
 
     db.getProfileInfo()
         .then(({ rows }) => {
-            // console.log("signers route rows:", rows);
+
             res.render("signers", {
                 layout: "main",
                 AllSigners: rows
@@ -139,7 +140,7 @@ router.get("/signers/:city", requireSignature, (req, res) => {
 
     db.getSameCitySigners(req.params.city)
         .then(({ rows }) => {
-            //console.log('rows', rows)
+
             return res.render("signers_same_city", {
                 layout: "main",
                 allSameCitySigners: rows

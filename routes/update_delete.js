@@ -5,9 +5,9 @@ const { requireLoggedInUser, requireLoggedOutUser, requireNoSignature, requireSi
 const { compare, hash } = require("../bc");
 
 router.get("/edit_profile", (req, res) => {
-    //  console.log('req.session.userId', req.session.userId)
+
     db.getUserDataForEdit(req.session.userId).then(({ rows }) => {
-        //console.log('rows in editProfile', rows);
+
         res.render("edit_profile", {
             layout: "main",
             editUserData: rows
@@ -18,7 +18,7 @@ router.get("/edit_profile", (req, res) => {
 
 router.post("/edit_profile", (req, res) => {
     const { first, last, email, password, age, city, url } = req.body;
-    // console.log('req.body', req.body);
+
     if (password) {
         hash(password)
             .then((hashedPassword) => {

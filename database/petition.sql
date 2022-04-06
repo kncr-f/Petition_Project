@@ -21,7 +21,7 @@ CREATE TABLE signatures (
 );
 
 -- new user_profile table
-CREATE TABLE user_profiles(
+CREATE TABLE user_profiles (
   id SERIAL PRIMARY KEY,
   age INT,
   city VARCHAR,

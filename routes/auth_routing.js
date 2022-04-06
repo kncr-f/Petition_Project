@@ -25,10 +25,10 @@ router.post("/register", requireLoggedOutUser, (req, res) => {
 
     hash(password)
         .then((hashedPassword) => {
-            //console.log('hashedPassword', hashedPassword);
+
             db.addUser(first, last, email, hashedPassword)
                 .then(({ rows }) => {
-                    // console.log('adduser...', rows)
+
                     req.session.userId = rows[0].id;
                     res.redirect("/profile");
 
@@ -73,14 +73,14 @@ router.post("/login", requireLoggedOutUser, (req, res) => {
     }
 
     db.getUser(email).then(({ rows }) => {
-        //console.log('rows.. in post login', rows)
+
         compare(password, rows[0].password).then((match) => {
 
             if (match) {
-                //console.log('match', match);
+
                 req.session.userId = rows[0].id;
                 db.getSignature(req.session.userId).then((results) => {
-                    //console.log('results', results)
+
                     if (results.rows.length) {
                         req.session.sigId = results.rows[0].id
 
