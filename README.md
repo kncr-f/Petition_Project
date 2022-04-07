@@ -5,4 +5,3 @@ https://freedomforshoppingcarts.herokuapp.com/register
 
 ## Overview
 
-<iframe src="https://giphy.com/embed/CkF09bueq14lke2p2X" width="480" height="323" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/canvas-javascript-petition-CkF09bueq14lke2p2X">via GIPHY</a></p>
