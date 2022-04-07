@@ -4,4 +4,4 @@ This is an online petition website where supporters can register, log in, update
 https://freedomforshoppingcarts.herokuapp.com/register
 
 ## Overview
-
+<img src="public/images/petition gif 1.gif">
