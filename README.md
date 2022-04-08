@@ -24,13 +24,15 @@ When users first arrive at this site they are directed to a page that explains t
   
 ## Technology Stack
   <span><img src="https://img.shields.io/badge/PostgreSQL-fuchsia?style=for-the-badge&logo=postgresql&logoColor=white"></span>
-      <span><img src="https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript&logoColor=white"></span>
-   <span><img src="https://img.shields.io/badge/jQuery-blue?style=for-the-badge&logo=jquery&logoColor=white"></span>
-   <span><img src="https://img.shields.io/badge/Canvas-2d-purple?style=for-the-badge&logo=canvas&logoColor=white"></span>
+ <span><img src="https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript&logoColor=white"></span>
+ <span><img src="https://img.shields.io/badge/jQuery-blue?style=for-the-badge&logo=jquery&logoColor=white"></span>
+  <span><img src="https://img.shields.io/badge/Canvas-2d-purple?style=for-the-badge&logo=canvas&logoColor=white"></span>
    <span><img src="https://img.shields.io/badge/Express-lightgrey?style=for-the-badge&logo=express&logoColor=white"></span>
    <span><img src="https://img.shields.io/badge/NodeJS-brightgreen?style=for-the-badge&logo=nodedotjs&logoColor=white"></span>
  <span><img src="https://img.shields.io/badge/Heroku-blueviolet?style=for-the-badge&logo=heroku&logoColor=white"></span>
    <span><img src="https://img.shields.io/badge/Jest-red?style=for-the-badge&logo=jest&logoColor=white"></span>
+     <span><img src="https://cdn.iconscout.com/icon/free/png-256/handlebars-282936.png" width="70" height="35"></span>
+  
   
   
 ## Preview
