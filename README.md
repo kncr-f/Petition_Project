@@ -21,7 +21,18 @@ When users first arrive at this site they are directed to a page that explains t
 -Visitors have an profile page which they can edit their informations. They can also see all other supporter-list if they click see all signers link. 
   
 -In all signers page there are supportes names and their cities both of them are links. If the visitors click the name of other supporter they can visit their homepage if it exists. If the users click the city name they are directed to a new page that shows only the people who have signed the petition that live in that city.
-
+  
+## Technology Stack
+  <span><img src="https://img.shields.io/badge/PostgreSQL-fuchsia?style=for-the-badge&logo=postgresql&logoColor=white"></span>
+      <span><img src="https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript&logoColor=white"></span>
+   <span><img src="https://img.shields.io/badge/jQuery-blue?style=for-the-badge&logo=jquery&logoColor=white"></span>
+   <span><img src="https://img.shields.io/badge/Canvas-2d-purple?style=for-the-badge&logo=canvas&logoColor=white"></span>
+   <span><img src="https://img.shields.io/badge/Express-lightgrey?style=for-the-badge&logo=express&logoColor=white"></span>
+   <span><img src="https://img.shields.io/badge/NodeJS-brightgreen?style=for-the-badge&logo=nodedotjs&logoColor=white"></span>
+ <span><img src="https://img.shields.io/badge/Heroku-blueviolet?style=for-the-badge&logo=heroku&logoColor=white"></span>
+   <span><img src="https://img.shields.io/badge/Jest-red?style=for-the-badge&logo=jest&logoColor=white"></span>
+  
+  
 ## Preview
   
   **_Intro Page & Registration_**
