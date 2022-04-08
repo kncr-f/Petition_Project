@@ -36,19 +36,17 @@ When users first arrive at this site they are directed to a page that explains t
   
   <br>
   
- **_Login Same City Signers_**
+ **_Login & All Signers & Same City Signers_**
   
  <img src="public/images/petition login & same city signers.gif">
   
  <br>
   
+ **_Delete Signature_**
+  
 <img src="public/images/petition gif 2.gif">
   
- <br>
-  
-<img src="public/images/petition gif 3.gif">
 
-<br>
-  
-<img src="public/images/petition gif 4.gif">
+
+
   
