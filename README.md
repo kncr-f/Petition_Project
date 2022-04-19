@@ -18,9 +18,9 @@ When users first arrive at this site they are directed to a page that explains t
   
 -On subsequent visits to the site, people who have signed the petition are redirected to this page. They can not be given the opportunity to sign the petition again if they have the cookie indicating that they have already signed.
  
--Visitors have an profile page which they can edit their informations. They can also see all other supporter-list if they click see all signers link. 
+-Visitors have a profile page which they can edit their informations. They can also see all other supporter-list if they click see all signers link. 
   
--In all signers page there are supportes names and their cities both of them are links. If the visitors click the name of other supporter they can visit their homepage if it exists. If the users click the city name they are directed to a new page that shows only the people who have signed the petition that live in that city.
+-In all signers page there are supporters names and their cities both of them are links. If the visitors click the name of other supporter they can visit their homepage if it exists. If the users click the city name they are directed to a new page that shows only the people who have signed the petition that live in that city.
   
 ## Technology Stack
   <span><img src="https://img.shields.io/badge/PostgreSQL-fuchsia?style=for-the-badge&logo=postgresql&logoColor=white"></span>
